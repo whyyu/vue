@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>prop</title>
+</head>
+<body>
+    <div id="div1">
+        <button @click="clickme">clice me</button>
+        <mytag :parent-msg2="msg" v-on:recieve="recieve"></mytag>
+        <div>{{myMsg}}</div>
+    </div>
+    <script src="js/vue.min.js"></script>
+    <script>
+        Vue.component('mytag',{
+           template:'<div>{{parentMsg2}} <button  @click="childclick">child</button></div>',
+            props:['parentMsg','parentMsg2'],
+            methods:{
+                childclick:function(){
+                    this.$emit('recieve','棒棒哒')
+                }
+            },
+        });
+        new Vue({
+            el:'#div1',
+            data:{
+                msg:'你很棒',
+                myMsg :'厉害呢'
+
+            },
+            methods:{
+                clickme:function(){
+                    this.msg='加油'
+                },
+                recieve:function(myMsg){
+                    this.myMsg=myMsg;
+                }
+
+            }
+        });
+    </script>
+</body>
+</html>
